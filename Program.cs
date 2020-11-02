@@ -16,7 +16,7 @@ namespace HotelReservationSystem
             var endDate = Convert.ToDateTime(dates[1]);
             var hotelReservation = new HotelReservation();
             AddSampleHotels(hotelReservation);
-            var cheapestHotels = hotelReservation.FindCheapestHotel(startDate, endDate);
+            var cheapestHotels = hotelReservation.FindCheapestBestRatedHotel(startDate, endDate);
             var cost = hotelReservation.CalculateTotalCost(cheapestHotels[0], startDate, endDate);
             var hotelString = HotelString(cheapestHotels);
             Console.WriteLine("{0}, Total Cost : {1}", hotelString, cost);
@@ -25,22 +25,22 @@ namespace HotelReservationSystem
 
         public static void AddSampleHotels(HotelReservation hotelReservation)
         {
-            hotelReservation.AddHotel(new Hotel { name = "Lakewood", weekdayRatesRegular = 110, weekendRatesRegular = 90 });
-            hotelReservation.AddHotel(new Hotel { name = "Bridgewood", weekdayRatesRegular = 160, weekendRatesRegular = 60 });
-            hotelReservation.AddHotel(new Hotel { name = "Ridgewood", weekdayRatesRegular = 220, weekendRatesRegular = 150 });
+            hotelReservation.AddHotel(new Hotel { name = "Lakewood", weekdayRatesRegular = 110, weekendRatesRegular = 90, rating = 3 });
+            hotelReservation.AddHotel(new Hotel { name = "Bridgewood", weekdayRatesRegular = 160, weekendRatesRegular = 60,rating = 4 });
+            hotelReservation.AddHotel(new Hotel { name = "Ridgewood", weekdayRatesRegular = 220, weekendRatesRegular = 150, rating = 5 });
 
         }
         public static string HotelString(List<Hotel> cheapestHotels)
         {
             if (cheapestHotels.Count == 1)
-                return cheapestHotels[0].name;
+                return cheapestHotels[0].name + "| Rating : " + cheapestHotels[0].rating.ToString();
             var hotelString = "";
             for (int i = 0; i < cheapestHotels.Count; i++)
             {
                 if (i == cheapestHotels.Count - 1)
                     hotelString += " and ";
 
-                hotelString += cheapestHotels[i].name;
+                hotelString += cheapestHotels[i].name + "| Rating : " + cheapestHotels[i].rating.ToString();
                 if (i != cheapestHotels.Count - 1)
                     hotelString += ",";
             }
