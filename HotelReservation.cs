@@ -97,6 +97,12 @@ namespace HotelReservationSystem
             Console.Write("Enter Regular Weekend Rate :  ");
             hotel.weekendRatesRegular = Convert.ToInt32(Console.ReadLine());
 
+            Console.Write("Enter Loyalty Weekday Rate :  ");
+            hotel.weekdayRatesLoyalty = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter Loyalty Weekend Rate :  ");
+            hotel.weekendRatesLoyalty = Convert.ToInt32(Console.ReadLine());
+
             Console.Write("Enter Rating : ");
             hotel.rating = Convert.ToInt32(Console.ReadLine());
 
