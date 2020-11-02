@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="HotelReservationSystemTests\**" />
+    <EmbeddedResource Remove="HotelReservationSystemTests\**" />
+    <None Remove="HotelReservationSystemTests\**" />
+  </ItemGroup>
+
 </Project>
