@@ -8,8 +8,25 @@ namespace HotelReservationSystem
         {
             Console.WriteLine("Welcome to Hotel Reservation System!");
 
+            Console.Write("Enter the date range : ");
+            var input = Console.ReadLine();
+            string[] dates = input.Split(',');
+            var startDate = Convert.ToDateTime(dates[0]);
+            var endDate = Convert.ToDateTime(dates[1]);
             var hotelReservation = new HotelReservation();
-            hotelReservation.InitializeConsoleIO();
+            AddSampleHotels(hotelReservation);
+            var cheapestHotel = hotelReservation.FindCheapestHotel(startDate, endDate);
+            var cost = hotelReservation.CalculateTotalCost(cheapestHotel, startDate, endDate);
+            Console.WriteLine("{0}, Total Cost : {1}", cheapestHotel.name, cost);
+            
+        }
+
+        public static void AddSampleHotels(HotelReservation hotelReservation)
+        {
+            hotelReservation.AddHotel(new Hotel { name = "Lakewood", weekdayRatesRegular = 110, weekendRatesRegular = 90 });
+            hotelReservation.AddHotel(new Hotel { name = "Bridgewood", weekdayRatesRegular = 160, weekendRatesRegular = 60 });
+            hotelReservation.AddHotel(new Hotel { name = "Ridgewood", weekdayRatesRegular = 220, weekendRatesRegular = 150 });
+
         }
     }
 }
