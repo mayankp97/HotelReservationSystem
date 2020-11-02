@@ -23,7 +23,7 @@ namespace HotelReservationSystem
             hotels.Add(hotel.name, hotel);
         }
 
-        public Hotel FindCheapestHotel(DateTime startDate, DateTime endDate)
+        public List<Hotel> FindCheapestHotel(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
             {
@@ -31,15 +31,19 @@ namespace HotelReservationSystem
                 return null;
             }
             var cost = Int32.MaxValue;
-            Hotel cheapestHotel = new Hotel();
+            var cheapestHotels = new List<Hotel>();
             foreach(var hotel in hotels)
             {
                 var temp = cost;
                 cost = Math.Min(cost, CalculateTotalCost(hotel.Value, startDate, endDate));
-                if (temp != cost)
-                    cheapestHotel = hotel.Value;
+               
             }
-            return cheapestHotel;
+            foreach(var hotel in hotels)
+            {
+                if (CalculateTotalCost(hotel.Value, startDate, endDate) == cost)
+                    cheapestHotels.Add(hotel.Value);
+            }
+            return cheapestHotels;
         }
         public int CalculateTotalCost(Hotel hotel,DateTime startDate, DateTime endDate)
         {

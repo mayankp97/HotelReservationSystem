@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HotelReservationSystem
 {
@@ -15,9 +16,10 @@ namespace HotelReservationSystem
             var endDate = Convert.ToDateTime(dates[1]);
             var hotelReservation = new HotelReservation();
             AddSampleHotels(hotelReservation);
-            var cheapestHotel = hotelReservation.FindCheapestHotel(startDate, endDate);
-            var cost = hotelReservation.CalculateTotalCost(cheapestHotel, startDate, endDate);
-            Console.WriteLine("{0}, Total Cost : {1}", cheapestHotel.name, cost);
+            var cheapestHotels = hotelReservation.FindCheapestHotel(startDate, endDate);
+            var cost = hotelReservation.CalculateTotalCost(cheapestHotels[0], startDate, endDate);
+            var hotelString = HotelString(cheapestHotels);
+            Console.WriteLine("{0}, Total Cost : {1}", hotelString, cost);
             
         }
 
@@ -27,6 +29,22 @@ namespace HotelReservationSystem
             hotelReservation.AddHotel(new Hotel { name = "Bridgewood", weekdayRatesRegular = 160, weekendRatesRegular = 60 });
             hotelReservation.AddHotel(new Hotel { name = "Ridgewood", weekdayRatesRegular = 220, weekendRatesRegular = 150 });
 
+        }
+        public static string HotelString(List<Hotel> cheapestHotels)
+        {
+            if (cheapestHotels.Count == 1)
+                return cheapestHotels[0].name;
+            var hotelString = "";
+            for (int i = 0; i < cheapestHotels.Count; i++)
+            {
+                if (i == cheapestHotels.Count - 1)
+                    hotelString += " and ";
+
+                hotelString += cheapestHotels[i].name;
+                if (i != cheapestHotels.Count - 1)
+                    hotelString += ",";
+            }
+            return hotelString;
         }
     }
 }
