@@ -16,7 +16,7 @@ namespace HotelReservationSystem
             var endDate = Convert.ToDateTime(dates[1]);
             var hotelReservation = new HotelReservation();
             AddSampleHotels(hotelReservation);
-            var cheapestHotels = hotelReservation.FindCheapestBestRatedHotel(startDate, endDate);
+            var cheapestHotels = hotelReservation.FindBestRatedHotel(startDate, endDate);
             var cost = hotelReservation.CalculateTotalCost(cheapestHotels[0], startDate, endDate);
             var hotelString = HotelString(cheapestHotels);
             Console.WriteLine("{0}, Total Cost : {1}", hotelString, cost);
