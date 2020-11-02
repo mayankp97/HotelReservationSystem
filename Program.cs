@@ -7,6 +7,9 @@ namespace HotelReservationSystem
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Hotel Reservation System!");
+
+            var hotelReservation = new HotelReservation();
+            hotelReservation.InitializeConsoleIO();
         }
     }
 }
