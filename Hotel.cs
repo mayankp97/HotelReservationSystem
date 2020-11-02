@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HotelReservationSystem
 {
-    class Hotel
+    public class Hotel
     {
         public string name { get; set; }
         public int weekdayRatesRegular { get; set; }

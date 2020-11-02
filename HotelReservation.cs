@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HotelReservationSystem
 {
-    class HotelReservation
+    public class HotelReservation
     {
         public Dictionary<string, Hotel> hotels;
 
