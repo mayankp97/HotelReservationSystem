@@ -5,22 +5,36 @@ namespace HotelReservationSystem
 {
     class Program
     {
+        public static CustomerType customerType;
+        public static DateTime startDate;
+        public static DateTime endDate;
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Hotel Reservation System!");
 
+            TakeInput();
+            var hotelReservation = new HotelReservation();
+
+            AddSampleHotels(hotelReservation);
+
+            var cheapestHotels = hotelReservation.FindCheapestBestRatedHotel(startDate, endDate,customerType);
+            var cost = hotelReservation.CalculateTotalCost(cheapestHotels[0], startDate, endDate,customerType);
+            var hotelString = HotelString(cheapestHotels);
+
+            Console.WriteLine("{0}, Total Cost : {1}", hotelString, cost);
+            
+        }
+
+        public static void TakeInput()
+        {
+            Console.Write("Enter the type of Customer : ");
+            var type = Console.ReadLine().ToLower();
+            customerType = HotelReservation.GetCustomerType(type);
             Console.Write("Enter the date range : ");
             var input = Console.ReadLine();
             string[] dates = input.Split(',');
-            var startDate = Convert.ToDateTime(dates[0]);
-            var endDate = Convert.ToDateTime(dates[1]);
-            var hotelReservation = new HotelReservation();
-            AddSampleHotels(hotelReservation);
-            var cheapestHotels = hotelReservation.FindBestRatedHotel(startDate, endDate);
-            var cost = hotelReservation.CalculateTotalCost(cheapestHotels[0], startDate, endDate);
-            var hotelString = HotelString(cheapestHotels);
-            Console.WriteLine("{0}, Total Cost : {1}", hotelString, cost);
-            
+            startDate = Convert.ToDateTime(dates[0]);
+            endDate = Convert.ToDateTime(dates[1]);
         }
 
         public static void AddSampleHotels(HotelReservation hotelReservation)

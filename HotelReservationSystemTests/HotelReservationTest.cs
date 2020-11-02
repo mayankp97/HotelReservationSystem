@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace HotelReservationSystemTests
 {
@@ -43,23 +44,33 @@ namespace HotelReservationSystemTests
             Assert.That(result, Does.Contain(expected));
         }
         [Test]
-        public void FindCheapestHotels_WhenGivenInvalidDateRange_ReturnsNull()
+        public void FindCheapestHotels_WhenGivenInvalidDateRange_ThrowsException()
         {
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("10Sep2020");
 
-            var result = _hotelReservation.FindCheapestHotels(startDate, endDate);
-
-            Assert.That(result, Is.Null);
+            var exception = Assert.Throws<HotelReservationException>(() => _hotelReservation.FindCheapestHotels(startDate, endDate));
+            Assert.That(exception.exceptionType, Is.EqualTo(ExceptionType.INVALID_DATES));
         }
         [Test]
-        public void FindCheapestBestRatedHotels_WhenGivenValidDateRange_ReturnsCheapestHotelWithHighestRating()
+        public void FindCheapestBestRatedHotels_WhenGivenValidDateRangeForRegular_ReturnsCheapestHotelWithHighestRating()
         {
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("13Sep2020");
 
             var expected = _hotelReservation.hotels["Bridgewood"];
             var result = _hotelReservation.FindCheapestBestRatedHotel(startDate, endDate);
+
+            Assert.That(result, Does.Contain(expected));
+        }
+        [Test]
+        public void FindCheapestBestRatedHotels_WhenGivenValidDateRangeForLoyalty_ReturnsCheapestHotelWithHighestRating()
+        {
+            var startDate = Convert.ToDateTime("11Sep2020");
+            var endDate = Convert.ToDateTime("12Sep2020");
+
+            var expected = _hotelReservation.hotels["Ridgewood"];
+            var result = _hotelReservation.FindCheapestBestRatedHotel(startDate, endDate,CustomerType.Reward);
 
             Assert.That(result, Does.Contain(expected));
         }
