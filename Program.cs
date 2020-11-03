@@ -29,6 +29,9 @@ namespace HotelReservationSystem
         {
             Console.Write("Enter the type of Customer : ");
             var type = Console.ReadLine().ToLower();
+            if (!HotelReservation.ValidateCustomerType(type))
+                throw new HotelReservationException(ExceptionType.INVALID_CUSTOMER_TYPE, "Customer Type is invalid");
+
             customerType = HotelReservation.GetCustomerType(type);
             Console.Write("Enter the date range : ");
             var input = Console.ReadLine();
